@@ -1,3 +1,5 @@
+require 'coffee-script'
+
 desc "concats the coffee subscripts"
 task :mix_coffee do
   sh "coffeescript-concat -I coffee -o mixed_coffee/traveller2min.coffee"
@@ -15,4 +17,11 @@ end
 desc 'Opens traveller.html in your default browser'
 task :open do
   exec 'xdg-open executable/traveller.html'
+end
+
+desc 'Compiles the current coffeescript code to js'
+task :compile do
+  File.open('executable/traveller2min.js', 'w') do |f|
+    f.puts CoffeeScript.compile(File.read("coffee/traveller2min.coffee"))
+  end
 end
